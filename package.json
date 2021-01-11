@@ -1,0 +1,15 @@
+{
+  "name": "dust-nodejsWebservice",
+  "version": "1.0.0",
+  "description": "Local web service for DUST (nodejs)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Rune Moskvil Lyngås <runely85@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
