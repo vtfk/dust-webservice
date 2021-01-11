@@ -1,5 +1,7 @@
-var express = require('express');
-var app = express();
+const invokePSFile = require('./lib/invoke-ps-file');
+
+const express = require('express');
+const app = express();
 
 app.get('/', (req, res) => {
   console.log('Hello world', req.ip);
@@ -14,6 +16,16 @@ app.get('/ps/file/invoke', (req, res) => {
     });
     return;
   }
+
+  if (!req.body.filePath) {
+    res.json({
+      statusCode: 500,
+      message: "filePath is required"
+    });
+    return;
+  }
+
+  res.send(invokePSFile(req.body.filePath, req.body.args || undefined));
 });
 
 app.listen(3000, () => {
