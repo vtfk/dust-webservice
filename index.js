@@ -53,6 +53,6 @@ app.get('/invoke/psfile', (req, res) => {
     });
 });
 
-app.listen(EXPRESS_PORT, () => {
+app.listen(Number.parseInt(EXPRESS_PORT), () => {
   console.log(`DUST service listening on port ${EXPRESS_PORT}!`);
 });
