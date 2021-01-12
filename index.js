@@ -1,5 +1,6 @@
 const invokePSFile = require('./lib/invoke-ps-file');
 
+const config = require('./config');
 const express = require('express');
 const app = express();
 
@@ -28,6 +29,6 @@ app.get('/ps/file/invoke', (req, res) => {
   res.send(invokePSFile(req.body.filePath, req.body.args || undefined));
 });
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+app.listen(config.EXPRESS_PORT, () => {
+  console.log(`DUST service listening on port ${config.EXPRESS_PORT}!`);
 });
