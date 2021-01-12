@@ -22,8 +22,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/invoke/psfile', (req, res) => {
-  console.log(req.body);
-
   if (!req.body) {
     return res.json({
       statusCode: 500,
