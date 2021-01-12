@@ -1,8 +1,11 @@
 const invokePSFile = require('./lib/invoke-ps-file');
-
 const config = require('./config');
+
 const express = require('express');
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   console.log('Hello world', req.ip);
