@@ -16,5 +16,15 @@ Local web service for DUST (nodejs)
 git clone https://github.com/vtfk/dust-nodejswebservice.git
 cd dust-nodejswebservice
 npm i
-node index.js
 ```
+
+## Environment variables
+
+Create a `.env` file:
+
+```bash
+EXPRESS_PORT=3000
+MAX_BUFFER=10240000
+```
+
+`MAX_BUFFER` is total bytes to accept in stdout
