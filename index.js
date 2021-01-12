@@ -10,12 +10,10 @@ app.set('etag', false); // disable cache
 
 const isValidJSON = str => {
   try {
-    JSON.parse(str);
+    return JSON.parse(str);
   } catch (error) {
     return false;
   }
-
-  return true;
 }
 
 app.get('/', (req, res) => {
