@@ -13,23 +13,25 @@ app.get('/', (req, res) => {
 });
 
 app.get('/ps/file/invoke', (req, res) => {
+  console.log(req.body);
+
   if (!req.body) {
-    res.json({
+    return res.json({
       statusCode: 500,
-      message: "Body is required"
+      message: "JSON input is required!"
     });
-    return;
   }
 
   if (!req.body.filePath) {
-    res.json({
+    return res.json({
       statusCode: 500,
       message: "filePath is required"
     });
-    return;
   }
 
-  res.send(invokePSFile(req.body.filePath, req.body.args || undefined));
+  const result = invokePSFile(req.body.filePath, req.body.args || undefined);
+  res.send(result);
+  console.log("After exec og res send");
 });
 
 app.listen(config.EXPRESS_PORT, () => {
