@@ -8,12 +8,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('etag', false); // disable cache
 
-const parseJson = str => {
+const isValidJSON = str => {
   try {
-    return JSON.parse(str);
+    JSON.parse(str);
   } catch (error) {
     return false;
   }
+
+  return true;
 }
 
 app.get('/', (req, res) => {
@@ -38,14 +40,14 @@ app.get('/invoke/psfile', (req, res) => {
 
   invokePSFile(req.body.filePath, req.body.args || undefined)
     .then(result => {
-      const json = parseJson(result);
+      const json = isValidJSON(result);
       json ? res.json(json) : res.send({
         statusCode: 200,
         message: result
       });
     })
     .catch(error => {
-      const json = parseJson(error);
+      const json = isValidJSON(error);
       json ? res.status(500).json(json) : res.status(500).send({
         statusCode: 500,
         message: error
