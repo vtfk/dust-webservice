@@ -32,36 +32,4 @@ DUST_PATH=<local-full-path-to-folder-containing-the-scripts>
 
 ## Usage
 
-**`args` in JSON body is optional, but must be of type `object` if given**
-
-### `/:service/invoke`
-
-This dynamic endpoint accepts for now only `dust`
-
-```json
-{
-  "fileName": "ScriptFileName.ps1",
-  "args": {
-    "SamAccountName": "sak8976",
-    "Properties": [
-      "title",
-      "mail"
-    ],
-  }
-}
-```
-
-### `/invoke/psfile`
-
-```json
-{
-  "filePath": "C:\\FullPath\\To\\ScriptFileName.ps1",
-  "args": {
-    "SamAccountName": "sak8976",
-    "Properties": [
-      "title",
-      "mail"
-    ],
-  }
-}
-```
+[👉🏼 Head over here to see usage](./USAGE.md)
