@@ -32,6 +32,8 @@ module.exports = (req, res) => {
     return res.status(404).json({ error: `'${body.fileName}' is not a valid script for endpoint '${req.params.service}'!` })
   }
 
+  logger('info', ['invoke-ps', caller, filePath, 'invoking script'])
+
   invokePSFile(filePath, caller, body.args || undefined)
     .then(result => {
       logger('info', ['invoke-service', caller, filePath, 'returning result'])

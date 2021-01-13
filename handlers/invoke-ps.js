@@ -23,6 +23,8 @@ module.exports = (req, res) => {
     return res.status(404).json({ error: `'${body.filePath}' is not a valid script!` })
   }
 
+  logger('info', ['invoke-ps', caller, body.filePath, 'invoking script'])
+
   invokePSFile(body.filePath, caller, body.args || undefined)
     .then(result => {
       logger('info', ['invoke-ps', caller, body.filePath, 'returning result'])
