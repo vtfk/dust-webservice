@@ -7,7 +7,7 @@ const config = require('../config')
 const { logger } = require('@vtfk/logger')
 
 module.exports = (req, res) => {
-  const caller = req.user || req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  const caller = req.user.upn || req.headers['x-forwarded-for'] || req.socket.remoteAddress
   const { body } = req
 
   if (!body) {
