@@ -1,5 +1,5 @@
 {
-  "name": "dust-nodejsWebservice",
+  "name": "dust-nodejswebservice",
   "version": "1.0.0",
   "description": "Local web service for DUST (nodejs)",
   "main": "index.js",
