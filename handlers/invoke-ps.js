@@ -5,43 +5,35 @@ const invokePSFile = require('../lib/invoke-ps-file')
 const isValidJSON = require('../lib/is-valid-json')
 
 module.exports = (req, res) => {
-  const caller = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  const caller = req.user || req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  const { body } = req
 
-  if (!req.body) {
-    return res.status(500).json({
-      statusCode: 500,
-      message: 'JSON input is required!'
-    })
+  if (!body) {
+    logger('info', ['invoke-ps', caller, 'no body'])
+    return res.status(400).json({ message: 'JSON input is required!' })
   }
 
-  if (!req.body.filePath) {
-    return res.status(500).json({
-      statusCode: 500,
-      message: "'filePath' is required"
-    })
+  if (!body.filePath) {
+    logger('info', ['invoke-ps', caller, 'no filePath'])
+    return res.status(400).json({ message: 'filePath is required' })
   }
 
-  if (!existsSync(req.body.filePath)) {
-    return res.status(404).json({
-      statusCode: 404,
-      message: `'${req.body.filePath}' is not a valid script!`
-    })
+  if (!existsSync(body.filePath)) {
+    logger('info', ['invoke-ps', caller, 'file doesn\'t exist'])
+    return res.status(404).json({ message: `'${body.filePath}' is not a valid script!` })
   }
 
-  invokePSFile(req.body.filePath, caller, req.body.args || undefined)
+  invokePSFile(body.filePath, caller, body.args || undefined)
     .then(result => {
+      logger('info', ['invoke-ps', caller, body.filePath, 'returning result'])
+
       const json = isValidJSON(result)
-      json ? res.json(json) : res.send({
-        statusCode: 200,
-        message: result
-      })
+      res.json(json || { result })
     })
     .catch(error => {
-      logger('error', `${caller} :: ${error.stack}`)
+      logger('error', ['invoke-ps', caller, error.stack])
+
       const json = isValidJSON(error.message)
-      json ? res.status(500).json(json) : res.status(500).send({
-        statusCode: 500,
-        message: error.message
-      })
+      res.status(500).json(json || { error: error.message })
     })
 }
