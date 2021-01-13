@@ -25,6 +25,7 @@ Create a `.env` file:
 ```bash
 EXPRESS_PORT=3000
 MAX_BUFFER=10240000
+DUST_PATH=<local-full-path-to-folder-containing-the-scripts>
 ```
 
 `MAX_BUFFER` is total bytes to accept in stdout
