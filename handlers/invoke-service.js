@@ -7,57 +7,42 @@ const config = require('../config')
 const { logger } = require('@vtfk/logger')
 
 module.exports = (req, res) => {
-  const caller = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  const caller = req.user || req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  const { body } = req
 
-  if (!req.body) {
-    return res.status(500).json({
-      statusCode: 500,
-      message: `JSON input is required for endpoint '${req.params.service}'!`
-    })
+  if (!body) {
+    logger('info', ['invoke-service', caller, 'no body'])
+    return res.status(500).json({ message: `JSON input is required for endpoint '${req.params.service}'!` })
   }
 
-  if (!req.body.fileName) {
-    logger('info', `${caller} ::'fileName' is required for endpoint '${req.params.service}'`, req.body)
-    return res.status(500).json({
-      statusCode: 500,
-      message: `'fileName' is required for endpoint '${req.params.service}'!`,
-      message2: req.params.body
-    })
+  if (!body.fileName) {
+    logger('info', ['invoke-service', caller, 'filename is required'])
+    return res.status(500).json({ message: `'fileName' is required for endpoint '${req.params.service}'!` })
   }
 
   const servicePath = config[`${req.params.service.toUpperCase()}_PATH`]
-  logger('info', `${caller} ::`, 'Endpoint:', `'/${req.params.service}/invoke'`, 'ScriptPath:', `'${servicePath}'`)
-
   if (!servicePath || !existsSync(servicePath)) {
-    return res.status(404).json({
-      statusCode: 404,
-      message: `'${req.params.service}' is not a valid script endpoint!`
-    })
+    logger('info', ['invoke-service', caller, 'not valid script endpoint', req.params.service])
+    return res.status(404).json({ message: `'${req.params.service}' is not a valid script endpoint!` })
   }
 
-  const filePath = join(servicePath, req.body.fileName)
-
+  const filePath = join(servicePath, body.fileName)
   if (!existsSync(filePath)) {
-    return res.status(404).json({
-      statusCode: 404,
-      message: `'${req.body.fileName}' is not a valid script for endpoint '${req.params.service}'!`
-    })
+    logger('info', ['invoke-service', caller, 'file not found', filePath])
+    return res.status(404).json({ message: `'${body.fileName}' is not a valid script for endpoint '${req.params.service}'!` })
   }
 
-  invokePSFile(filePath, caller, req.body.args || undefined)
+  invokePSFile(filePath, caller, body.args || undefined)
     .then(result => {
+      logger('info', ['invoke-service', caller, filePath, 'returning result'])
+
       const json = isValidJSON(result)
-      json ? res.json(json) : res.send({
-        statusCode: 200,
-        message: result
-      })
+      res.json(json || { result })
     })
     .catch(error => {
-      logger('error', `${caller} ::${error.stack}`)
+      logger('error', ['invoke-service', caller, error.stack])
+
       const json = isValidJSON(error.message)
-      json ? res.status(500).json(json) : res.status(500).send({
-        statusCode: 500,
-        message: error.message
-      })
+      res.status(500).json(json || { error: error.message })
     })
 }
