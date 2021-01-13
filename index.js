@@ -69,9 +69,11 @@ app.get('/:service/invoke', (req, res) => {
   }
 
   if (!req.body.fileName) {
+    console.log(`${caller} ::'fileName' is required for endpoint '${req.params.service}'`, req.body);
     return res.status(500).json({
       statusCode: 500,
-      message: `'fileName' is required for endpoint '${req.params.service}'!`
+      message: `'fileName' is required for endpoint '${req.params.service}'!`,
+      message2: req.params.body
     });
   }
   
