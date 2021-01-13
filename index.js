@@ -21,7 +21,40 @@ const isValidJSON = str => {
 // default endpoint to list out what I can do
 app.get('/', (req, res) => {
   console.log('Hello world', req.headers['x-forwarded-for'] || req.socket.remoteAddress);
-  res.send(`Poste ut en beskrivende oversikt over hva API\'en kan! ${req.headers['x-forwarded-for'] || req.socket.remoteAddress}`);
+  res.send(`
+<h1>Usage</h1>
+
+<b><u>args</u> in JSON body is optional, but must be of type <u>object</u> if given</b>
+
+<h3>/:service/invoke</h3>
+
+<pre style="border: 1px solid black; background-color: lightgray;">
+{
+  "fileName": "ScriptFileName.ps1",
+  "args": {
+    "SamAccountName": "sak8976",
+    "Properties": [
+      "title",
+      "mail"
+    ],
+  }
+}
+</pre>
+
+<h3>/invoke/psfile</h3>
+
+<pre style="border: 1px solid black; background-color: lightgray;">
+{
+  "filePath": "C:\\FullPath\\To\\ScriptFileName.ps1",
+  "args": {
+    "SamAccountName": "sak8976",
+    "Properties": [
+      "title",
+      "mail"
+    ],
+  }
+}
+</pre>`);
 });
 
 // endpoint for invoking scriptname in given service
