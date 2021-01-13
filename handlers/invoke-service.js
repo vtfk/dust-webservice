@@ -12,24 +12,24 @@ module.exports = (req, res) => {
 
   if (!body) {
     logger('info', ['invoke-service', caller, 'no body'])
-    return res.status(500).json({ message: `JSON input is required for endpoint '${req.params.service}'!` })
+    return res.status(500).json({ error: `JSON input is required for endpoint '${req.params.service}'!` })
   }
 
   if (!body.fileName) {
     logger('info', ['invoke-service', caller, 'filename is required'])
-    return res.status(500).json({ message: `'fileName' is required for endpoint '${req.params.service}'!` })
+    return res.status(500).json({ error: `'fileName' is required for endpoint '${req.params.service}'!` })
   }
 
   const servicePath = config[`${req.params.service.toUpperCase()}_PATH`]
   if (!servicePath || !existsSync(servicePath)) {
     logger('info', ['invoke-service', caller, 'not valid script endpoint', req.params.service])
-    return res.status(404).json({ message: `'${req.params.service}' is not a valid script endpoint!` })
+    return res.status(404).json({ error: `'${req.params.service}' is not a valid script endpoint!` })
   }
 
   const filePath = join(servicePath, body.fileName)
   if (!existsSync(filePath)) {
     logger('info', ['invoke-service', caller, 'file not found', filePath])
-    return res.status(404).json({ message: `'${body.fileName}' is not a valid script for endpoint '${req.params.service}'!` })
+    return res.status(404).json({ error: `'${body.fileName}' is not a valid script for endpoint '${req.params.service}'!` })
   }
 
   invokePSFile(filePath, caller, body.args || undefined)

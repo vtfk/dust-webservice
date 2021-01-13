@@ -10,17 +10,17 @@ module.exports = (req, res) => {
 
   if (!body) {
     logger('info', ['invoke-ps', caller, 'no body'])
-    return res.status(400).json({ message: 'JSON input is required!' })
+    return res.status(400).json({ error: 'JSON input is required!' })
   }
 
   if (!body.filePath) {
     logger('info', ['invoke-ps', caller, 'no filePath'])
-    return res.status(400).json({ message: 'filePath is required' })
+    return res.status(400).json({ error: 'filePath is required' })
   }
 
   if (!existsSync(body.filePath)) {
     logger('info', ['invoke-ps', caller, 'file doesn\'t exist'])
-    return res.status(404).json({ message: `'${body.filePath}' is not a valid script!` })
+    return res.status(404).json({ error: `'${body.filePath}' is not a valid script!` })
   }
 
   invokePSFile(body.filePath, caller, body.args || undefined)
