@@ -26,42 +26,11 @@ Create a `.env` file:
 EXPRESS_PORT=3000
 MAX_BUFFER=10240000
 DUST_PATH=<local-full-path-to-folder-containing-the-scripts>
+JWT_SECRET=<SuperDuperSecretSecretKey>
 ```
 
 `MAX_BUFFER` is total bytes to accept in stdout
 
 ## Usage
 
-**`args` in JSON body is optional, but must be of type `object` if given**
-
-### `/:service/invoke`
-
-This dynamic endpoint accepts for now only `dust`
-
-```json
-{
-  "fileName": "ScriptFileName.ps1",
-  "args": {
-    "SamAccountName": "sak8976",
-    "Properties": [
-      "title",
-      "mail"
-    ],
-  }
-}
-```
-
-### `/invoke/psfile`
-
-```json
-{
-  "filePath": "C:\\FullPath\\To\\ScriptFileName.ps1",
-  "args": {
-    "SamAccountName": "sak8976",
-    "Properties": [
-      "title",
-      "mail"
-    ],
-  }
-}
-```
+[👉🏼 Head over here to see usage](./USAGE.md)
