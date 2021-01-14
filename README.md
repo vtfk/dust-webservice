@@ -25,6 +25,7 @@ Create a `.env` file:
 ```bash
 EXPRESS_PORT=3000
 MAX_BUFFER=10240000
+ACCEPTED_PATH_ROOT=<local-full-path-to-folder> # Called script must be inside this folder somehow
 DUST_PATH=<local-full-path-to-folder-containing-the-scripts>
 JWT_SECRET=<SuperDuperSecretSecretKey>
 ```
