@@ -1,7 +1,7 @@
+const config = require('./config')
 const { logger } = require('@vtfk/logger')
 const express = require('express')
 const jwt = require('express-jwt')
-const config = require('./config')
 
 const app = express()
 
