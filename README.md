@@ -38,7 +38,7 @@ NODE_ENV=production
 
 Set `ACCEPTED_PATH_ROOT` to the root path of where all scripts are stored. All scripts to be invoked must be directly inside the root path or in any number of sub folders.
 
-Set `JWT_SECRET` to a super duper secret 🗝 to enable JWT token auth
+Set `JWT_SECRET` to a super duper secret 🗝 &nbsp; to enable JWT token auth
 
 Add `PAPERTRAIL_*` and `NODE_ENV` to enable papertrails logging
 
