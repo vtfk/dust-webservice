@@ -9,12 +9,12 @@ module.exports = (req, res) => {
   const { body } = req
 
   if (!body) {
-    logger('info', ['invoke-ps', caller, 'no body'])
+    logger('error', ['invoke-ps', caller, 'no body'])
     return res.status(400).json({ error: 'JSON input is required!' })
   }
 
   if (!body.filePath) {
-    logger('info', ['invoke-ps', caller, 'no filePath'])
+    logger('error', ['invoke-ps', caller, 'no filePath'])
     return res.status(400).json({ error: 'filePath is required' })
   }
 

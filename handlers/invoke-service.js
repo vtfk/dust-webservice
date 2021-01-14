@@ -12,19 +12,19 @@ module.exports = (req, res) => {
   const { body } = req
 
   if (!body) {
-    logger('info', ['invoke-service', caller, 'no body'])
+    logger('error', ['invoke-service', caller, 'no body'])
     return res.status(500).json({ error: `JSON input is required for endpoint '${req.params.service}'!` })
   }
 
   if (!body.fileName) {
-    logger('info', ['invoke-service', caller, 'filename is required'])
+    logger('error', ['invoke-service', caller, 'filename is required'])
     return res.status(500).json({ error: `'fileName' is required for endpoint '${req.params.service}'!` })
   }
 
   const servicePath = config[`${req.params.service.toUpperCase()}_PATH`]
 
   if (!servicePath || !existsSync(servicePath)) {
-    logger('info', ['invoke-service', caller, 'not valid script endpoint', req.params.service])
+    logger('error', ['invoke-service', caller, 'not valid script endpoint', req.params.service])
     return res.status(404).json({ error: `'${req.params.service}' is not a valid script endpoint!` })
   }
 
