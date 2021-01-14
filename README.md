@@ -25,12 +25,22 @@ Create a `.env` file:
 ```bash
 EXPRESS_PORT=3000
 MAX_BUFFER=10240000
-ACCEPTED_PATH_ROOT=<local-full-path-to-folder> # Called script must be inside this folder somehow
+ACCEPTED_PATH_ROOT=<local-full-path-to-folder>
 DUST_PATH=<local-full-path-to-folder-containing-the-scripts>
 JWT_SECRET=<SuperDuperSecretSecretKey>
+PAPERTRAIL_HOST=logs.example.com
+PAPERTRAIL_PORT=port
+PAPERTRAIL_HOSTNAME=<coolname>
+NODE_ENV=production
 ```
 
 `MAX_BUFFER` is total bytes to accept in stdout
+
+Set `ACCEPTED_PATH_ROOT` to the root path of where all scripts are stored. All scripts to be invoked must be directly inside the root path or in any number of sub folders.
+
+Set `JWT_SECRET` to a super duper secret 🗝 to enable JWT token auth
+
+Add `PAPERTRAIL_*` and `NODE_ENV` to enable papertrails logging
 
 ## Usage
 
