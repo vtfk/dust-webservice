@@ -1,6 +1,7 @@
 const { existsSync } = require('fs')
 const { join } = require('path')
 
+const validatePath = require('../lib/validate-script-input')
 const invokePSFile = require('../lib/invoke-ps-file')
 const isValidJSON = require('../lib/is-valid-json')
 const config = require('../config')
@@ -21,15 +22,18 @@ module.exports = (req, res) => {
   }
 
   const servicePath = config[`${req.params.service.toUpperCase()}_PATH`]
+
   if (!servicePath || !existsSync(servicePath)) {
     logger('info', ['invoke-service', caller, 'not valid script endpoint', req.params.service])
     return res.status(404).json({ error: `'${req.params.service}' is not a valid script endpoint!` })
   }
 
   const filePath = join(servicePath, body.fileName)
-  if (!existsSync(filePath)) {
-    logger('info', ['invoke-service', caller, 'file not found', filePath])
-    return res.status(404).json({ error: `'${body.fileName}' is not a valid script for endpoint '${req.params.service}'!` })
+  const result = validatePath(filePath)
+
+  if (result instanceof Error) {
+    logger('error', ['invoke-service', caller, 'filepath', filePath, 'not valid script', result.message])
+    return res.status(400).json({ error: `Invalid script for endpoint '${req.params.service}'`, message: result.message })
   }
 
   logger('info', ['invoke-ps', caller, filePath, 'invoking script'])

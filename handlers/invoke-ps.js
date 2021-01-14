@@ -1,6 +1,6 @@
 const { logger } = require('@vtfk/logger')
-const { existsSync } = require('fs')
 
+const validatePath = require('../lib/validate-script-input')
 const invokePSFile = require('../lib/invoke-ps-file')
 const isValidJSON = require('../lib/is-valid-json')
 
@@ -18,9 +18,11 @@ module.exports = (req, res) => {
     return res.status(400).json({ error: 'filePath is required' })
   }
 
-  if (!existsSync(body.filePath)) {
-    logger('info', ['invoke-ps', caller, 'file doesn\'t exist'])
-    return res.status(404).json({ error: `'${body.filePath}' is not a valid script!` })
+  const result = validatePath(body.filePath)
+
+  if (result instanceof Error) {
+    logger('error', ['invoke-ps', caller, 'filepath', body.filePath, 'not valid script', result.message])
+    return res.status(400).json({ error: 'Invalid script', message: result.message })
   }
 
   logger('info', ['invoke-ps', caller, body.filePath, 'invoking script'])
