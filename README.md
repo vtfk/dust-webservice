@@ -1,4 +1,6 @@
-﻿# dust-nodejsWebservice
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+# dust-nodejsWebservice
 
 Local web service for DUST (nodejs)
 
