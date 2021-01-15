@@ -22,7 +22,7 @@ module.exports = (req, res) => {
 
   if (result instanceof Error) {
     logger('error', ['invoke-ps', caller, 'filepath', body.filePath, 'not valid script', result.message])
-    return res.status(400).json({ error: 'Invalid script', message: result.message })
+    return res.status(404).json({ error: 'Invalid script', message: result.message })
   }
 
   logger('info', ['invoke-ps', caller, body.filePath, 'invoking script'])
@@ -38,6 +38,6 @@ module.exports = (req, res) => {
       logger('error', ['invoke-ps', caller, error.stack])
 
       const json = isValidJSON(error.message)
-      res.status(500).json(json || { error: error.message })
+      res.status(error.statusCode).json(json || { error: error.message })
     })
 }
