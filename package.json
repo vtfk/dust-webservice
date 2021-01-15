@@ -4,7 +4,8 @@
   "description": "Local web service for DUST (nodejs)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "standard": "standard",
+    "fix": "standard --fix",
     "refresh": "rm -rf node_modules/ && rm package-lock.json && npm i",
     "run-locally": "nodemon index.js"
   },
@@ -20,6 +21,7 @@
     "markdown-it": "12.0.4"
   },
   "devDependencies": {
-    "nodemon": "2.0.7"
+    "nodemon": "2.0.7",
+    "standard": "^16.0.3"
   }
 }
