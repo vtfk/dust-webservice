@@ -1,4 +1,4 @@
-var md = require('markdown-it')({ html: true })
+const md = require('markdown-it')({ html: true })
 const { logger } = require('@vtfk/logger')
 const { readFileSync } = require('fs')
 
