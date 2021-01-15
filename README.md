@@ -20,7 +20,7 @@ npm i
 
 ## Setup environment variables
 
-Create a `.env` file:
+Create a `.env` file in the cloned repo:
 
 ```bash
 EXPRESS_PORT=3000
