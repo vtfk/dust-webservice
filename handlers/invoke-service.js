@@ -13,12 +13,12 @@ module.exports = (req, res) => {
 
   if (!body) {
     logger('error', ['invoke-service', caller, 'no body'])
-    return res.status(500).json({ error: `JSON input is required for endpoint '${req.params.service}'!` })
+    return res.status(400).json({ error: `JSON input is required for endpoint '${req.params.service}'!` })
   }
 
   if (!body.fileName) {
     logger('error', ['invoke-service', caller, 'filename is required'])
-    return res.status(500).json({ error: `'fileName' is required for endpoint '${req.params.service}'!` })
+    return res.status(400).json({ error: `'fileName' is required for endpoint '${req.params.service}'!` })
   }
 
   const servicePath = config[`${req.params.service.toUpperCase()}_PATH`]
@@ -33,7 +33,7 @@ module.exports = (req, res) => {
 
   if (result instanceof Error) {
     logger('error', ['invoke-service', caller, 'filepath', filePath, 'not valid script', result.message])
-    return res.status(400).json({ error: `Invalid script for endpoint '${req.params.service}'`, message: result.message })
+    return res.status(404).json({ error: `Invalid script for endpoint '${req.params.service}'`, message: result.message })
   }
 
   logger('info', ['invoke-ps', caller, filePath, 'invoking script'])
