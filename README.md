@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/vtfk/DUST/_apis/build/status/vtfk.dust-webservice?branchName=main)](https://dev.azure.com/vtfk/DUST/_build/latest?definitionId=3&branchName=main)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 # dust-webservice
