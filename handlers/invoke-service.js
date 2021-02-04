@@ -4,11 +4,12 @@ const { join } = require('path')
 const validatePath = require('../lib/validate-script-input')
 const invokePSFile = require('../lib/invoke-ps-file')
 const isValidJSON = require('../lib/is-valid-json')
+const getCaller = require('../lib/get-caller')
 const config = require('../config')
 const { logger } = require('@vtfk/logger')
 
 module.exports = (req, res) => {
-  const caller = (req.user && req.user.caller) || req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  const caller = getCaller(req)
   const { body } = req
 
   if (!body) {
