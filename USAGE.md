@@ -1,4 +1,4 @@
-# dust-nodejswebservice
+# dust-webservice
 
 Local web service for calling scripts for DUST.
 

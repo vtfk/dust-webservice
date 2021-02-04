@@ -1,8 +1,8 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-# dust-nodejsWebservice
+# dust-webservice
 
-Local web service for DUST (nodejs)
+Local web service for calling scripts for DUST.
 
 ## IIS setup
 
@@ -15,8 +15,8 @@ Local web service for DUST (nodejs)
 ## Setup repo
 
 ```bash
-git clone https://github.com/vtfk/dust-nodejswebservice.git
-cd dust-nodejswebservice
+git clone https://github.com/vtfk/dust-webservice.git
+cd dust-webservice
 npm i
 ```
 
