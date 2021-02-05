@@ -7,7 +7,7 @@ test('test dependencies', () => {
   })
 })
 
-// import all development dependencies to check that everything will work
+// import all dev dependencies to check that everything will work
 test('test development dependencies', () => {
   Object.keys(devDependencies).forEach(dependency => {
     expect(require(dependency)).toEqual(expect.anything())
