@@ -6,7 +6,7 @@
 trigger:
   tags:
     include:
-      - 0.*
+      - v*
 
 pool:
   vmImage: 'ubuntu-latest'
