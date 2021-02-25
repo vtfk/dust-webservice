@@ -44,14 +44,12 @@ module.exports = (req, res) => {
       logger('info', ['invoke-service', caller, filePath, 'returning result'])
 
       const json = isValidJSON(result)
-      const jsonMessage = !!json ? json : { result }
-      res.json(jsonMessage)
+      res.json(json || { result })
     })
     .catch(error => {
       logger('error', ['invoke-service', caller, error.stack])
 
       const json = isValidJSON(error.message)
-      const jsonMessage = !!json ? json : { error: error.message }
-      res.status(error.statusCode).json(jsonMessage)
+      res.status(error.statusCode).json(json || { error: error.message })
     })
 }
