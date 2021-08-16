@@ -39,6 +39,6 @@ module.exports = (req, res) => {
       logger('error', ['invoke-ps', caller, error.stack])
 
       const json = isValidJSON(error.message)
-      res.status(error.statusCode).json(json || { error: error.message })
+      res.status(error.statusCode).json(json || { error: error.message, stack: error.stack })
     })
 }
