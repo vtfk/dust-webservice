@@ -117,3 +117,6 @@ dist
 
 # Copy to prod script
 Copy-ToProd.ps1
+
+# OSX Finder
+.DS_Store
