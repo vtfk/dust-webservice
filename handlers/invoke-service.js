@@ -49,7 +49,7 @@ module.exports = (req, res) => {
     .catch(error => {
       logger('error', ['invoke-service', caller, error.stack])
 
-      const json = isValidJSON(error.message)
+      const json = isValidJSON(error)
       res.status(error.statusCode).json(json || { error: error.message, stack: error.stack })
     })
 }
