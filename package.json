@@ -1,6 +1,6 @@
 {
   "name": "dust-webservice",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Local web service for DUST",
   "main": "index.js",
   "scripts": {
