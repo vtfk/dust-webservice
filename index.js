@@ -1,9 +1,23 @@
-const { JWT_SECRET, EXPRESS_PORT } = require('./config')
+const { JWT_SECRET, EXPRESS_PORT, RATE_LIMIT_MINUTES, RATE_LIMIT_COUNT } = require('./config')
 const { logger } = require('@vtfk/logger')
 const express = require('express')
 const jwt = require('express-jwt')
+const rateLimit = require('express-rate-limit')
 
 const app = express()
+
+// limit incomming calls from same address
+const limiter = rateLimit({
+  windowMs: RATE_LIMIT_MINUTES * 60 * 1000,
+  max: RATE_LIMIT_COUNT,
+  message: 'APP APP APP APP APP APP APP',
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res, next, options) => {
+    logger('warn', ['Someone is running a DDOS attack on us 😱'])
+  }
+})
+app.use('/', limiter)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
