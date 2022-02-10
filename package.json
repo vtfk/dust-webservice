@@ -16,7 +16,7 @@
   "dependencies": {
     "@vtfk/logger": "4.1.2",
     "child_process": "1.0.2",
-    "dotenv": "10.0.0",
+    "dotenv": "14.3.2",
     "express": "^4.17.1",
     "express-jwt": "6.1.0",
     "express-rate-limit": "6.2.0",
