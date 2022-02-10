@@ -20,7 +20,7 @@
     "express": "^4.17.1",
     "express-jwt": "6.1.0",
     "express-rate-limit": "6.2.0",
-    "markdown-it": "12.2.0"
+    "markdown-it": "12.3.2"
   },
   "devDependencies": {
     "jest": "27.4.7",
