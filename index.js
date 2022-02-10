@@ -15,6 +15,7 @@ const limiter = rateLimit({
   legacyHeaders: false,
   handler: (req, res, next, options) => {
     logger('warn', ['Someone is running a DDOS attack on us 😱'])
+    res.status(options.statusCode).send(options.message)
   }
 })
 app.use('/', limiter)
