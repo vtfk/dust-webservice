@@ -5,7 +5,7 @@ const validatePath = require('../lib/validate-script-input')
 const invokePSFile = require('../lib/invoke-ps-file')
 const isValidJSON = require('../lib/is-valid-json')
 const getCaller = require('../lib/get-caller')
-const config = require('../config')
+const { SERVICE_PATH } = require('../config')
 const { logger } = require('@vtfk/logger')
 
 module.exports = (req, res) => {
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
     return res.status(400).json({ error: `'fileName' is required for endpoint '${req.params.service}'!` })
   }
 
-  const servicePath = config[`${req.params.service.toUpperCase()}_PATH`]
+  const servicePath = SERVICE_PATH.replace('%service%', req.params.service)
 
   if (!servicePath || !existsSync(servicePath)) {
     logger('error', ['invoke-service', caller, 'not valid script endpoint', req.params.service])

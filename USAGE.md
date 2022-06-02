@@ -1,6 +1,6 @@
 # dust-webservice
 
-Local web service for calling scripts for DUST.
+Local web service for calling scripts for DUST (amongst others if you wish).
 
 <br/>
 

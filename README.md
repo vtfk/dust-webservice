@@ -2,7 +2,7 @@
 
 # dust-webservice
 
-Local web service for calling scripts for DUST.
+Local web service for calling scripts for DUST (amongst others if you wish).
 
 ## IIS setup
 
@@ -28,13 +28,17 @@ Create a `.env` file in the cloned repo:
 EXPRESS_PORT=3000
 MAX_BUFFER=10240000
 ACCEPTED_PATH_ROOT=<local-full-path-to-folder>
-DUST_PATH=<local-full-path-to-folder-containing-the-scripts>
+SERVICE_PATH=<local-full-path-to-folder-containing-the-scripts>
 JWT_SECRET=<SuperDuperSecretSecretKey>
 PAPERTRAIL_HOST=logs.example.com
 PAPERTRAIL_PORT=port
 PAPERTRAIL_HOSTNAME=<coolname>
 NODE_ENV=production
 ```
+
+> **SERVICE_PATH** can and should contain a `%service%` part to support a variaty of service endpoints.
+
+> Example: **D:\Scripts\\%service%\scripts**
 
 `MAX_BUFFER` is total bytes to accept in stdout
 
