@@ -14,7 +14,7 @@
   "author": "Rune Moskvil Lyngås <runely85@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@vtfk/logger": "4.1.2",
+    "@vtfk/logger": "4.3.2",
     "child_process": "1.0.2",
     "dotenv": "16.0.1",
     "express": "^4.17.1",
